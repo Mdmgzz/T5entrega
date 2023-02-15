@@ -5,15 +5,15 @@ import java.util.Scanner;
 
 
 public class Main {
-	static final int TAMAÑO= 20; //  tamaño del tablero
-	static final int MINAS = 6; //  cantidad de minas
+	static final int TAMAÑO= 20; 			//  tamaño del tablero
+	static final int MINAS = 6; 			//  cantidad de minas
 	
 	public static char[] bombas(char tablerOculto[]) {
-		int indice; // Para guardar las minas en valores aleatorios
-		char bombas[] = new char[TAMAÑO]; // Creamos un nuevo array
-		char contador = 0; // Contador para rellenar las minas necesarias
+		int indice; 						// Para guardar las minas en valores aleatorios
+		char bombas[] = new char[TAMAÑO];   // Creamos un nuevo array
+		char contador = 0; 					// Contador para rellenar las minas necesarias
 
-		for (int i = 0; i < TAMAÑO; i++) { // Rellenamos el array inicialmente con ceros
+		for (int i = 0; i < TAMAÑO; i++) {  // empezamos rellenando el array con ceros
 			bombas[i] = '0';
 		}
 
@@ -25,34 +25,34 @@ public class Main {
 				bombas[indice] = '*'; 						 // Si no hay mina, la ponemos
 
 				if (izq(indice)) { 							 // Llamamos a la función izq
-					if (!compruebaDer(bombas, indice)) { // si no hay mina a la derecha se sima 1 en la posicion siguiente
+					if (!compruebaDer(bombas, indice)) { 	 // si no hay mina a la derecha se sima 1 en la posicion siguiente
 															
 						bombas[indice + 1] += 1;
 					}
 				} else if (der(indice)) {  					  // Llamamos a la función der
-					if (!compruebaIzq(bombas, indice)) {  // Si no hay mina a la izquierda sumamos 1 en la posicion anterior
+					if (!compruebaIzq(bombas, indice)) { 	  // Si no hay mina a la izquierda sumamos 1 en la posicion anterior
 															
 						bombas[indice - 1] += 1;
 					}
 				} else {
-					if (!compruebaIzq(bombas, indice)) { // Si no hay mina a la izquierda, sumammos +1 a
-																	// 'indice - 1'
+					if (!compruebaIzq(bombas, indice)) {	  
+																	
 						bombas[indice - 1] += 1;
 					}
-					if (!compruebaDer(bombas, indice)) { // Si no hay mina a la derecha, sumamos +1 a 'indice
-																	// + 1'
+					if (!compruebaDer(bombas, indice)) { 
+																
 						bombas[indice + 1] += 1;
 					}
 				}
-				contador++; // al colocar una mina correctamente se aumenta en 1 el contador 
+				contador++; 									// al colocar una mina correctamente se aumenta en 1 el contador 
 			}
 		}
-		return bombas; // ya estaria el tablero relleno con las minas y los numeros
+		return bombas; 									// ya estaria el tablero relleno con las minas y los numeros
 	}
 	
 	
 	public static Boolean der(int indice) {
-		Boolean borde = false;
+		Boolean borde = false;							//comprueba si estamos en el borde derecho devolviendo un boleano
 
 		if (indice == (TAMAÑO - 1)) {
 			borde = true;
@@ -61,7 +61,7 @@ public class Main {
 	}
 	
 	public static Boolean izq(int indice) {
-		Boolean borde = false;
+		Boolean borde = false;							//comprueba si estamos en el borde izquierdo devolviendo un boleano
 
 		if (indice == 0) {
 			borde = true;
@@ -70,7 +70,7 @@ public class Main {
 		return borde;
 	}
 	
-	public static Boolean compruebaDer(char tablerOculto[], int indice) {
+	public static Boolean compruebaDer(char tablerOculto[], int indice) {			// comprueba si hay mina a la dercha
 		Boolean mina = false;
 
 		if (tablerOculto[indice + 1] == '*') {
@@ -80,7 +80,7 @@ public class Main {
 		return mina;
 	}
 	
-	public static Boolean compruebaIzq(char tablerOculto[], int indice) {
+	public static Boolean compruebaIzq(char tablerOculto[], int indice) {			//comprueba si hay mina a la izq
 		Boolean mina = false;
 
 		if (tablerOculto[indice - 1] == '*') {
@@ -90,7 +90,7 @@ public class Main {
 		return mina;
 	}
 	 
-	 public static char[] juego(char tablero[], char tablerOculto[], int numero) {
+	 public static char[] juego(char tablero[], char tablerOculto[], int numero) { 		// esta funcion es la que devuelve al tablero un numero si no hay mina
 
 			if (tablero[numero] == '-') {
 				tablero[numero] = tablerOculto[numero];
@@ -99,7 +99,7 @@ public class Main {
 			return tablero;
 		}
 	 
-	 public static Boolean hasperdido(char tablerOculto[], int numero) {
+	 public static Boolean hasperdido(char tablerOculto[], int numero) {				// cunado te topas con una mina esta funcion termina el juego
 			Boolean derrota = false;
 
 			if (tablerOculto[numero] == '*') {
@@ -109,7 +109,7 @@ public class Main {
 			return derrota;
 	 }
 	 
-	 public static Boolean hasganado(int resultado) {
+	 public static Boolean hasganado(int resultado) {						// comprueba si has conseguido acertar las casillas que no tienen minas
 			Boolean victoria = false;
 
 			if (resultado > 13) {
@@ -156,7 +156,7 @@ public static void main(String[] args) {
 		}while (!hasperdido(tablerOculto, numero) && !hasganado(contador));
 			
 		
-		if (hasperdido(tablerOculto, numero)) { 									// si el contador esta por debajo de 14 hbrá perdido
+		if (hasperdido(tablerOculto, numero)) { 							// si el contador esta por debajo de 14 hbrá perdido
 			System.out.println("HAS PERDIDO,BUENA SUERTE LA PROXIMA: ");
 		} else { 															// si ha conseguido llegar a 14 sin encontarse con una mina
 			System.out.println("ERES UNA MAQUINA HAS GANADO!! ");
